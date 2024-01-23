@@ -1,8 +1,5 @@
-import numpy as np
-import pygame
-
-from GameLogic.colors import DULL_RED
-from GameLogic.settings import WIDTH, HEIGHT, SCREEN
+from GameLogic.GameUtilities.colors import DULL_RED
+from GameLogic.GameUtilities.settings import WIDTH, HEIGHT
 
 
 class Character:
@@ -28,10 +25,6 @@ class Character:
         self.kill = False
         self.speed_up = False
         self.slow_down = False
-
-    # Draw self to screen
-    def draw(self):
-        pygame.draw.circle(SCREEN, self.color, self.position, self.radius)
 
     # Preform character movement
     def move(self):

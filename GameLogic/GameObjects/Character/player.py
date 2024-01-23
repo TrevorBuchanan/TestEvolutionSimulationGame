@@ -1,8 +1,6 @@
-import pygame
-
-from GameLogic.Character.character import Character
-from GameLogic.settings import WIDTH, HEIGHT, CHARACTER_RADIUS
-from GameLogic.utility import pt_calc_dist, generate_random_pos
+from GameLogic.GameObjects.Character.character import Character
+from GameLogic.GameUtilities.settings import WIDTH, HEIGHT, CHARACTER_RADIUS
+from GameLogic.GameUtilities.utility import pt_calc_dist, generate_random_pos
 
 
 class Player(Character):

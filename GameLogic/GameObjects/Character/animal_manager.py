@@ -1,8 +1,11 @@
-from GameLogic.Character.animal import Animal
-from GameLogic.Enviroment.plant import Plant
-from GameLogic.colors import BEIGE
-from GameLogic.Character.charManager import CharacterManager
-from GameLogic.utility import pt_calc_dist
+import pygame
+
+from GameLogic.GameObjects.Character.animal import Animal
+from GameLogic.GameObjects.Enviroment.plant import Plant
+from GameLogic.GameUtilities.colors import BEIGE
+from GameLogic.GameObjects.Character.charManager import CharacterManager
+from GameLogic.GameUtilities.settings import SCREEN
+from GameLogic.GameUtilities.utility import pt_calc_dist
 
 
 class AnimalManager(CharacterManager):
@@ -12,8 +15,11 @@ class AnimalManager(CharacterManager):
         self.char.color = BEIGE
 
     def act(self, game_objects):
-        self.char.draw()
+        self.draw()
         self.perform_actions(game_objects)
+
+    def draw(self):
+        pygame.draw.circle(SCREEN, self.char.color, self.char.position, self.char.radius)
 
     def perform_actions(self, game_objects):
         self.set_objects_in_range(game_objects)

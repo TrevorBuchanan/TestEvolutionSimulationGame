@@ -1,7 +1,7 @@
 import pygame
 
-from GameLogic import colors
-from GameLogic.settings import SCREEN, INPUT
+from GameLogic.GameUtilities import colors
+from GameLogic.GameUtilities.settings import SCREEN, INPUT
 
 
 class Game:

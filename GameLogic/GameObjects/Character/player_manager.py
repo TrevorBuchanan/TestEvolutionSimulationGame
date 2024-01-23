@@ -1,8 +1,8 @@
 import pygame
 
-from GameLogic.Character.player import Player
-from GameLogic.Character.charManager import CharacterManager
-from GameLogic.settings import INPUT
+from GameLogic.GameObjects.Character.player import Player
+from GameLogic.GameObjects.Character.charManager import CharacterManager
+from GameLogic.GameUtilities.settings import INPUT, SCREEN
 
 
 class PlayerManager(CharacterManager):
@@ -11,8 +11,11 @@ class PlayerManager(CharacterManager):
         self.char = Player()
 
     def act(self, game_objects):
-        self.char.draw()
+        self.draw()
         self.perform_actions()
+
+    def draw(self):
+        pygame.draw.circle(SCREEN, self.char.color, self.char.position, self.char.radius)
 
     # Perform actions
     def perform_actions(self):

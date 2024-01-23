@@ -2,11 +2,11 @@
 
 import pygame
 
-from GameLogic.Character.animal_manager import AnimalManager
-from GameLogic.Character.player_manager import PlayerManager
+from GameLogic.GameObjects.Character.animal_manager import AnimalManager
+from GameLogic.GameObjects.Character.player_manager import PlayerManager
 from GameLogic.Game.game import Game
-from GameLogic.colors import WHITE
-from GameLogic.settings import FPS, SCREEN, FONT, BORDER, ANIMAL_AMOUNT, PLANT_AMOUNT
+from GameLogic.GameUtilities.colors import WHITE
+from GameLogic.GameUtilities.settings import FPS, SCREEN, FONT, BORDER, ANIMAL_AMOUNT, PLANT_AMOUNT
 
 
 
