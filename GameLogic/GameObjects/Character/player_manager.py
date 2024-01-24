@@ -9,12 +9,11 @@ class PlayerManager(CharacterManager):
     def __init__(self):
         super().__init__()
         self.obj = Player()
-        self.draw_statistics = True
 
     # Perform actions
     def perform_actions(self, game_objects):
         self.check_dead()
-        if self.obj.dead:
+        if self.dead:
             # Dead stuff
             pass
         else:
@@ -26,17 +25,12 @@ class PlayerManager(CharacterManager):
             self.obj.move()
             self.obj.change_speed()
 
-    # Check if dead *** ?Move? ***
-    def check_dead(self):
-        if self.obj.hp <= 0:
-            self.obj.dead = True
-
     # Check if kill
     def check_kill(self):
         if INPUT.keys[pygame.K_SPACE]:
-            self.obj.kill = True
+            self.obj.deal_dmg = True
         else:
-            self.obj.kill = False
+            self.obj.deal_dmg = False
 
     # Check if eat
     def check_eat(self):

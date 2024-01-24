@@ -21,3 +21,5 @@ class Game:
             obj.act(self.game_objects)
             if isinstance(obj, PlayerManager):
                 obj.draw_stats()
+            if obj.dead:
+                self.game_objects.remove(obj)  # removing from list while in it ** NO NO **

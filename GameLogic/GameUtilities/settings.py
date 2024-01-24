@@ -17,6 +17,7 @@ FONT = pygame.font.Font('freesansbold.ttf', 20)
 
 # Game settings
 ANIMAL_AMOUNT = 100
+
 CHARACTER_RADIUS = 8
 
 PLANT_AMOUNT = 25

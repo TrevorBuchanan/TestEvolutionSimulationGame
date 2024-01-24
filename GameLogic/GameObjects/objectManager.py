@@ -8,6 +8,7 @@ from GameLogic.GameUtilities.utility import write_to_screen
 class ObjectManager:
     def __init__(self):
         self.obj = None
+        self.dead = False
 
     def act(self, game_objects):
         self.draw()

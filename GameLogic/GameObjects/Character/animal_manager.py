@@ -1,11 +1,8 @@
-import pygame
-
 from GameLogic.GameObjects.Character.animal import Animal
 from GameLogic.GameObjects.Enviroment.plant import Plant
-from GameLogic.GameUtilities.colors import BEIGE, WHITE
+from GameLogic.GameUtilities.colors import BEIGE
 from GameLogic.GameObjects.Character.char_manager import CharacterManager
-from GameLogic.GameUtilities.settings import SCREEN
-from GameLogic.GameUtilities.utility import pt_calc_dist, write_to_screen
+from GameLogic.GameUtilities.utility import pt_calc_dist
 
 
 class AnimalManager(CharacterManager):
@@ -29,42 +26,41 @@ class AnimalManager(CharacterManager):
     def set_objects_in_range(self, game_objects):
         num_chars = 0
         num_plants = 0
-        eat_index = 0
-        min_plant_dist = 0
-        for obj in game_objects:
-            if isinstance(obj, CharacterManager):
-                if pt_calc_dist(self.obj.position, obj.obj.position) < self.obj.view_range and \
-                        self.obj.position != obj.obj.position:
+        min_plant_dist = self.obj.view_range
+        min_char_dist = self.obj.view_range
+        switch = True
+        for game_obj in game_objects:
+            if isinstance(game_obj, CharacterManager):
+                if pt_calc_dist(self.obj.position, game_obj.obj.position) < self.obj.view_range and \
+                        self.obj.position != game_obj.obj.position:
                     num_chars += 1
-                    if num_chars >= 15:
+                    if num_chars >= self.obj.max_perceived:
                         break
-            elif isinstance(obj, Plant):
-                if eat_index == 0:
-                    min_plant_dist = pt_calc_dist(self.obj.position, obj.position)
+            elif isinstance(game_obj, Plant):
+                if switch:
+                    min_plant_dist = pt_calc_dist(self.obj.position, game_obj.position)
+                    switch = False
                 if pt_calc_dist(self.obj.position,
-                                obj.position) < self.obj.view_range and self.obj.position != obj.position:
+                                game_obj.position) < self.obj.view_range and self.obj.position != game_obj.position:
                     num_plants += 1
-                    if min_plant_dist > pt_calc_dist(self.obj.position, obj.position):
-                        min_plant_dist = pt_calc_dist(self.obj.position, obj.position)
-                        self.obj.eat_index = eat_index
-                    if num_plants >= 15:
+                    if min_plant_dist > pt_calc_dist(self.obj.position, game_obj.position):
+                        min_plant_dist = pt_calc_dist(self.obj.position, game_obj.position)
+                    if num_plants >= self.obj.max_perceived:
                         break
-                eat_index += 1
-
         self.obj.plants_in_range = num_plants
-        self.obj.dist_to_food = min_plant_dist
+        self.obj.dist_to_plant = min_plant_dist
         self.obj.chars_in_range = num_chars
+        self.obj.dist_to_closest_char = min_char_dist
 
     # Run network
     def use_brain(self):
+        # Inputs
+        inputs = [self.obj.plants_in_range, self.obj.dist_to_closest_plant, self.obj.chars_in_range,
+                  self.obj.dist_to_closest_char, self.obj.energy, self.obj.hp, self.obj.speed, self.obj.left,
+                  self.obj.right, self.obj.up, self.obj.down, self.obj.eat, self.obj.deal_dmg, self.obj.speed_up,
+                  self.obj.slow_down]
+
+        self.obj.brain.get_outputs(inputs)
+
+    def calculate_reward(self):
         pass
-        # # Input aray
-        # i_arr = np.array([self.chars_in_range, self.food_in_range, self.dist_to_food, self.energy, self.hp])
-        #
-        # # Normalize  input array to between 0 and 1
-        # norm_i_arr = (i_arr - np.min(i_arr)) / (np.max(i_arr) - np.min(i_arr))
-        #
-        # # Layer sizes
-        # layer_sizes = np.array([len(norm_i_arr), 10, 10, 9])
-        #
-        # self.brain.run_network(norm_i_arr, layer_sizes)
