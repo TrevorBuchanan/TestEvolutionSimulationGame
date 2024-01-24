@@ -17,8 +17,11 @@ FONT = pygame.font.Font('freesansbold.ttf', 20)
 
 # Game settings
 ANIMAL_AMOUNT = 100
-PLANT_AMOUNT = 100
 CHARACTER_RADIUS = 8
 
-# User Input *** Move ***
+PLANT_AMOUNT = 25
+PLANT_RADIUS = 15
+PLANT_NUTRIENTS = 10
+
+# User Input *** Move *** ???
 INPUT = Input()

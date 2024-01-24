@@ -4,23 +4,24 @@ import pygame
 
 from GameLogic.GameObjects.Character.animal_manager import AnimalManager
 from GameLogic.GameObjects.Character.player_manager import PlayerManager
+from GameLogic.GameObjects.Enviroment.plant_manager import PlantManager
 from GameLogic.Game.game import Game
 from GameLogic.GameUtilities.colors import WHITE
 from GameLogic.GameUtilities.settings import FPS, SCREEN, FONT, BORDER, ANIMAL_AMOUNT, PLANT_AMOUNT
-
-
+from GameLogic.GameUtilities.utility import write_to_screen
 
 if __name__ == '__main__':
     clock = pygame.time.Clock()
 
     g = Game()
-    g.game_objects.append(PlayerManager())
 
     for _ in range(ANIMAL_AMOUNT):
         g.game_objects.append(AnimalManager())
 
     for _ in range(PLANT_AMOUNT):
         g.game_objects.append(PlantManager())
+
+    g.game_objects.append(PlayerManager())
 
     # Screen window loop
     running = True
@@ -39,8 +40,7 @@ if __name__ == '__main__':
         g.run_game()
 
         fps = str(int(clock.get_fps()))
-        text = FONT.render(f"FPS: {fps}", True, WHITE)
-        SCREEN.blit(text, [BORDER.width - 100, 10])
+        write_to_screen(f"FPS: {fps}", [BORDER.width - 120, 10], WHITE)
 
         pygame.display.update()
 

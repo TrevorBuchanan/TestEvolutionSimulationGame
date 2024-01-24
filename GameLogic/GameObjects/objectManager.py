@@ -1,12 +1,25 @@
+import pygame
+
+from GameLogic.GameUtilities.colors import WHITE
+from GameLogic.GameUtilities.settings import SCREEN, WIDTH
+from GameLogic.GameUtilities.utility import write_to_screen
+
 
 class ObjectManager:
+    def __init__(self):
+        self.obj = None
 
     def act(self, game_objects):
         self.draw()
         self.perform_actions(game_objects)
 
     def draw(self):
-        raise Exception("Not implemented \'draw\' function")
+        if self.obj is None:
+            raise Exception("Object \'obj\' is not an object")
+        pygame.draw.circle(SCREEN, self.obj.color, self.obj.position, self.obj.radius)
+
+    def draw_stats(self):
+        raise Exception("Not implemented \'draw_stats\' function")
 
     def perform_actions(self, game_objects):
         raise Exception("Not implemented \'perform_actions\' function")

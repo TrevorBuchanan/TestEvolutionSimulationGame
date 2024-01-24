@@ -1,70 +1,83 @@
 import pygame
 
 from GameLogic.GameObjects.Character.player import Player
-from GameLogic.GameObjects.Character.charManager import CharacterManager
-from GameLogic.GameUtilities.settings import INPUT, SCREEN
+from GameLogic.GameObjects.Character.char_manager import CharacterManager
+from GameLogic.GameUtilities.settings import INPUT
 
 
 class PlayerManager(CharacterManager):
     def __init__(self):
         super().__init__()
-        self.char = Player()
-
-    def act(self, game_objects):
-        self.draw()
-        self.perform_actions()
-
-    def draw(self):
-        pygame.draw.circle(SCREEN, self.char.color, self.char.position, self.char.radius)
+        self.obj = Player()
+        self.draw_statistics = True
 
     # Perform actions
-    def perform_actions(self):
-        self.player_kill()
-        self.player_move()
-        self.player_change_speed()
-        self.char.move()
-        self.char.change_speed()
+    def perform_actions(self, game_objects):
+        self.check_dead()
+        if self.obj.dead:
+            # Dead stuff
+            pass
+        else:
+            super().perform_actions(game_objects)
+            self.check_kill()
+            self.check_eat()
+            self.check_move()
+            self.check_change_speed()
+            self.obj.move()
+            self.obj.change_speed()
+
+    # Check if dead *** ?Move? ***
+    def check_dead(self):
+        if self.obj.hp <= 0:
+            self.obj.dead = True
 
     # Check if kill
-    def player_kill(self):
+    def check_kill(self):
         if INPUT.keys[pygame.K_SPACE]:
-            self.char.kill = True
+            self.obj.kill = True
         else:
-            self.char.kill = False
+            self.obj.kill = False
+
+    # Check if eat
+    def check_eat(self):
+        if INPUT.keys[pygame.K_e]:
+            self.obj.eat = True
+        else:
+            self.obj.eat = False
 
     # Check for move
-    def player_move(self):
+    def check_move(self):
         if INPUT.keys[pygame.K_a]:  # LEFT
-            self.char.left = True
-            self.char.right = False
+            self.obj.left = True
+            self.obj.right = False
         else:
-            self.char.left = False
+            self.obj.left = False
         if INPUT.keys[pygame.K_d]:  # RIGHT
-            self.char.right = True
-            self.char.left = False
+            self.obj.right = True
+            self.obj.left = False
         else:
-            self.char.right = False
+            self.obj.right = False
         if INPUT.keys[pygame.K_w]:  # UP
-            self.char.up = True
-            self.char.down = False
+            self.obj.up = True
+            self.obj.down = False
         else:
-            self.char.up = False
+            self.obj.up = False
         if INPUT.keys[pygame.K_s]:  # DOWN
-            self.char.down = True
-            self.char.up = False
+            self.obj.down = True
+            self.obj.up = False
         else:
-            self.char.down = False
+            self.obj.down = False
 
-    # Player speed setting input
-    def player_change_speed(self):
+    # Check player speed change
+    def check_change_speed(self):
         if INPUT.keys[pygame.K_p]:
-            self.char.speed_up = True
-            self.char.slow_down = False
+            self.obj.speed_up = True
+            self.obj.slow_down = False
         else:
-            self.char.speed_up = False
+            self.obj.speed_up = False
 
         if INPUT.keys[pygame.K_o]:
-            self.char.slow_down = True
-            self.char.speed_up = False
+            self.obj.slow_down = True
+            self.obj.speed_up = False
         else:
-            self.char.slow_down = False
+            self.obj.slow_down = False

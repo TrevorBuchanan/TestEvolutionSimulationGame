@@ -14,25 +14,23 @@ class Animal(Character):
         self.brain = neuralNet.NeuralNet()
 
         # Traits
-        self.view_range = random.randint(20, 100)
+        self.view_range = random.randint(50, 200)
 
-        # Char external previous values
+        # Animal external previous values
         self.chars_in_range_prev = 0
         self.plants_in_range_prev = 0
         self.dist_to_food_prev = -1
-        self.eat_index_prev = -1
 
-        # Char internal previous values
+        # Animal internal previous values
         self.energy_prev = 100
         self.dmg_prev = 100
         self.hp_prev = 100
         self.speed_prev = 0
 
-        # Char external observations
+        # Animal external observations
         self.chars_in_range = 0
         self.plants_in_range = 0
         self.dist_to_food = -1
-        self.eat_index = -1  # ???
 
         # Animal brain characteristics
         self.layers = [3, 3, 3]

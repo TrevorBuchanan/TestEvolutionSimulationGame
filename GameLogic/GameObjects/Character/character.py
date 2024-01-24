@@ -16,6 +16,7 @@ class Character:
         self.dmg = 100
         self.hp = 100
         self.speed = 1
+        self.loss = 0.005
 
         # Char external actions
         self.left = False
@@ -23,6 +24,7 @@ class Character:
         self.up = False
         self.down = False
         self.kill = False
+        self.eat = False
         self.speed_up = False
         self.slow_down = False
 

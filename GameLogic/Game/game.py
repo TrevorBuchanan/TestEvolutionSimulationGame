@@ -1,5 +1,6 @@
 import pygame
 
+from GameLogic.GameObjects.Character.player_manager import PlayerManager
 from GameLogic.GameUtilities import colors
 from GameLogic.GameUtilities.settings import SCREEN, INPUT
 
@@ -18,3 +19,5 @@ class Game:
         # All game object actions
         for obj in self.game_objects:
             obj.act(self.game_objects)
+            if isinstance(obj, PlayerManager):
+                obj.draw_stats()
