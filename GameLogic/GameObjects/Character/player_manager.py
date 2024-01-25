@@ -12,7 +12,6 @@ class PlayerManager(CharacterManager):
 
     # Perform actions
     def perform_actions(self, game_objects):
-        self.check_dead()
         if self.dead:
             # Dead stuff
             pass

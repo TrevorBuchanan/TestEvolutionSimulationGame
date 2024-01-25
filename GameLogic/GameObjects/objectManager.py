@@ -24,3 +24,8 @@ class ObjectManager:
 
     def perform_actions(self, game_objects):
         raise Exception("Not implemented \'perform_actions\' function")
+
+    def end_life_if_dead(self, game_objects):
+        if self.dead:
+            game_objects.remove(self)
+

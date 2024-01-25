@@ -16,10 +16,13 @@ class CharacterManager(ObjectManager):
         write_to_screen(f"Energy: {round(self.obj.energy)}", [WIDTH - 120, 50], WHITE)
         write_to_screen(f"HP: {round(self.obj.hp)}", [WIDTH - 120, 80], WHITE)
         write_to_screen(f"Speed: {round(self.obj.speed, 2)}", [WIDTH - 120, 110], WHITE)
+        write_to_screen(f"Age: {round(self.obj.age)}", [WIDTH - 120, 140], WHITE)
 
     def perform_actions(self, game_objects):
+        self.check_dead()
         self.gain_and_loss()
         self.damage_and_eat(game_objects)
+        self.obj.age += 0.005
 
     # Damage other characters and eat
     def damage_and_eat(self, game_objects):
@@ -53,9 +56,6 @@ class CharacterManager(ObjectManager):
                         game_obj.obj.total_nutrients -= game_obj.obj.nutrients
                         self.obj.energy += game_obj.obj.nutrients
                         game_obj.obj.being_eaten = True
-                        # Reproduce if energy is greater than 100
-                        if self.obj.energy >= 100:
-                            self.obj.reproduce = True
 
     # Decrement energy
     def gain_and_loss(self):
@@ -65,11 +65,12 @@ class CharacterManager(ObjectManager):
             self.obj.energy -= self.obj.gain_loss
 
         if self.obj.energy <= 0:
-            self.obj.hp -= self.obj.gain_loss
+            self.obj.hp -= self.obj.gain_loss * 3
             self.obj.energy = 0
 
-        if self.obj.energy > 0 and self.obj.hp <= 100:
-            self.obj.hp += self.obj.gain_loss
+        if self.obj.energy > 0 and self.obj.hp + self.obj.gain_loss <= 100:
+            self.obj.hp += self.obj.gain_loss * 3
+            self.obj.energy -= self.obj.gain_loss
 
     # Check if dead
     def check_dead(self):

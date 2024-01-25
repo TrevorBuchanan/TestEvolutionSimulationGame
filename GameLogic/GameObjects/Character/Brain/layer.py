@@ -17,9 +17,7 @@ class Layer:
         self.numInputs = input_amount
         self.numOutputs = output_amount
 
-        # Layer input, raw_output, and activated_output (changed for each pass through)
-        self.inputs = [0 for _ in range(input_amount)]
-        self.raw_output = [0 for _ in range(output_amount)]
+        # Activated_output (changed for each pass through)
         self.activated_outputs = [0 for _ in range(output_amount)]
 
         # Weights and biases
@@ -33,12 +31,9 @@ class Layer:
         :param inputs: List (of length self.input_amount) of numbers
         :return: List of output numbers having run through layer and activation function
         """
-        self.inputs = inputs
         for out_index in range(self.numOutputs):
             weighted_input = self.biases[out_index]
             for in_index in range(self.numInputs):
                 weighted_input += inputs[in_index] * self.weights[in_index][out_index]
-            self.raw_output[out_index] = weighted_input
             self.activated_outputs[out_index] = activation_function(weighted_input)
         return self.activated_outputs
-

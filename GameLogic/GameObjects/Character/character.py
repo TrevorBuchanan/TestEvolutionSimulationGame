@@ -12,13 +12,16 @@ class Character:
 
         # Char traits
         self.color = DULL_RED
-        self.dmg = 10
-        self.gain_loss = 0.005
+        self.dmg = 2
+        self.gain_loss = 0.01
+        self.min_speed = 1
+        self.max_speed = 5
 
         # Char internal states
         self.energy = 100
         self.hp = 100
         self.speed = 1
+        self.age = 0
 
         # Char external actions
         self.left = False
@@ -43,13 +46,13 @@ class Character:
             self.position[1] += self.speed
 
     # Change speeds
-    def change_speed(self):  # Maybe make min and max speed be traits
+    def change_speed(self):
         if self.speed_up:
             self.speed += 0.1
-            if self.speed > 5:
+            if self.speed > self.max_speed:
                 self.speed = 5
 
         if self.slow_down:
             self.speed -= 0.1
-            if self.speed < 1:
-                self.speed = 1
+            if self.speed < self.min_speed:
+                self.speed = self.min_speed

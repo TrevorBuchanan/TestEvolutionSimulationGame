@@ -34,8 +34,14 @@ class NeuralNet:
         normalized_inputs = []
         # Loop through each value and normalize inputs to between 0 and 1
         for input_node_val, min_max in zip(inputs, self.min_max_inputs):
-            normalized = (input_node_val - min_max[0]) / (min_max[1] - min_max[0])
-            normalized_inputs.append(normalized)
+            if isinstance(input_node_val, bool):
+                if input_node_val:
+                    normalized_inputs.append(1.0)
+                else:
+                    normalized_inputs.append(0.0)
+            else:
+                normalized = (input_node_val - min_max[0]) / (min_max[1] - min_max[0])
+                normalized_inputs.append(normalized)
         return normalized_inputs
 
     def get_outputs(self, inputs):
