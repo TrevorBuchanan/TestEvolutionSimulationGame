@@ -1,6 +1,8 @@
+import pygame
+
 from GameLogic.GameObjects.Enviroment.plant import Plant
 from GameLogic.GameObjects.objectManager import ObjectManager
-from GameLogic.GameUtilities.settings import PLANT_RADIUS, PLANT_NUTRIENTS
+from GameLogic.GameUtilities.settings import PLANT_RADIUS, PLANT_NUTRIENTS, SCREEN
 from GameLogic.GameUtilities.utility import scale_to_range
 
 
@@ -10,10 +12,14 @@ class PlantManager(ObjectManager):
         self.obj = Plant()
         self.being_eaten = False
 
-    def perform_actions(self, game_objects):
+    def act(self, game_objects):
         self.get_eaten()
         self.grow()
         self.normalize_radius()
+        self.draw()
+
+    def draw(self):
+        pygame.draw.circle(SCREEN, self.obj.color, self.obj.position, self.obj.radius)
 
     # Plant growth
     def grow(self):

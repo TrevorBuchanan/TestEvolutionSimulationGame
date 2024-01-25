@@ -1,8 +1,10 @@
+import pygame
+
 from GameLogic.GameObjects.Character.character import Character
 from GameLogic.GameObjects.Enviroment.plant_manager import PlantManager
 from GameLogic.GameObjects.objectManager import ObjectManager
 from GameLogic.GameUtilities.colors import WHITE
-from GameLogic.GameUtilities.settings import WIDTH
+from GameLogic.GameUtilities.settings import WIDTH, SCREEN
 from GameLogic.GameUtilities.utility import write_to_screen, pt_calc_dist
 
 
@@ -11,6 +13,13 @@ class CharacterManager(ObjectManager):
         super().__init__()
         self.obj = Character([0, 0], 1)
 
+    def act(self, game_objects):
+        self.check_dead()
+        self.gain_and_loss()
+        self.damage_and_eat(game_objects)
+        self.draw()
+        self.obj.age += 0.005
+
     # Draw player stats
     def draw_stats(self):
         write_to_screen(f"Energy: {round(self.obj.energy)}", [WIDTH - 120, 50], WHITE)
@@ -18,11 +27,8 @@ class CharacterManager(ObjectManager):
         write_to_screen(f"Speed: {round(self.obj.speed, 2)}", [WIDTH - 120, 110], WHITE)
         write_to_screen(f"Age: {round(self.obj.age)}", [WIDTH - 120, 140], WHITE)
 
-    def perform_actions(self, game_objects):
-        self.check_dead()
-        self.gain_and_loss()
-        self.damage_and_eat(game_objects)
-        self.obj.age += 0.005
+    def draw(self):
+        pygame.draw.circle(SCREEN, self.obj.color, self.obj.position, self.obj.radius)
 
     # Damage other characters and eat
     def damage_and_eat(self, game_objects):

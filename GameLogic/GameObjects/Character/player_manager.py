@@ -11,12 +11,12 @@ class PlayerManager(CharacterManager):
         self.obj = Player()
 
     # Perform actions
-    def perform_actions(self, game_objects):
+    def act(self, game_objects):
         if self.dead:
             # Dead stuff
             pass
         else:
-            super().perform_actions(game_objects)
+            super().act(game_objects)
             self.check_kill()
             self.check_eat()
             self.check_move()

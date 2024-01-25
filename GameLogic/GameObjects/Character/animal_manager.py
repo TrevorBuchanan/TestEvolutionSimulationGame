@@ -1,9 +1,11 @@
+import pygame
+
 from GameLogic.GameObjects.Character.Brain.layer import Layer
 from GameLogic.GameObjects.Character.animal import Animal
 from GameLogic.GameObjects.Enviroment.plant import Plant
 from GameLogic.GameUtilities.colors import BEIGE, BROWN
 from GameLogic.GameObjects.Character.char_manager import CharacterManager
-from GameLogic.GameUtilities.settings import WIDTH, HEIGHT
+from GameLogic.GameUtilities.settings import WIDTH, HEIGHT, SCREEN
 from GameLogic.GameUtilities.utility import pt_calc_dist, generate_random_pos
 
 
@@ -13,9 +15,9 @@ class AnimalManager(CharacterManager):
         self.obj = Animal()
         self.obj.color = BEIGE
 
-    def perform_actions(self, game_objects):
+    def act(self, game_objects):
         self.set_previous_values()
-        super().perform_actions(game_objects)
+        super().act(game_objects)
         self.reproduce(game_objects)
         self.set_objects_in_range(game_objects)
         self.use_brain()
@@ -25,6 +27,9 @@ class AnimalManager(CharacterManager):
             self.obj.color = BROWN
         else:
             self.obj.color = BEIGE
+
+    def draw(self):
+        pygame.draw.circle(SCREEN, self.obj.color, self.obj.position, self.obj.radius)
 
     def set_previous_values(self):
         self.obj.energy_prev = self.obj.energy
