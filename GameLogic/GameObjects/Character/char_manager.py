@@ -11,6 +11,9 @@ from GameLogic.GameUtilities.utility import write_to_screen, pt_calc_dist
 
 
 class CharacterManager(ObjectManager):
+    """
+    ObjectManager game object for Character object
+    """
     def __init__(self):
         super().__init__()
         self.obj = Character([0, 0], 1)
@@ -22,20 +25,23 @@ class CharacterManager(ObjectManager):
         self.damage_and_eat(game_objects)
         self.move()
         self.change_speed()
-        self.draw()
 
-    # Draw player stats
+    def draw(self):
+        # Draw specified characteristics
+        pygame.draw.circle(SCREEN, self.obj.color, self.obj.position, self.obj.radius)
+
     def draw_stats(self):
+        # Draw character stats
         write_to_screen(f"Energy: {round(self.obj.energy)}", [WIDTH - 120, 50], WHITE)
         write_to_screen(f"HP: {round(self.obj.hp)}", [WIDTH - 120, 80], WHITE)
         write_to_screen(f"Speed: {round(self.obj.speed, 2)}", [WIDTH - 120, 110], WHITE)
         write_to_screen(f"Age: {math.floor(self.age)}", [WIDTH - 120, 140], WHITE)
 
-    def draw(self):
-        pygame.draw.circle(SCREEN, self.obj.color, self.obj.position, self.obj.radius)
-
-    # Damage other characters and eat
     def damage_and_eat(self, game_objects):
+        """
+        Perform damage to other characters and eating actions
+        :param game_objects: List of all current game objects
+        """
         if self.obj.deal_dmg or self.obj.eat:
             # Loop through all game objects
             for game_obj in game_objects:
@@ -67,8 +73,10 @@ class CharacterManager(ObjectManager):
                         self.obj.energy += game_obj.obj.nutrients
                         game_obj.obj.being_eaten = True
 
-    # Decrement energy
     def gain_and_loss(self):
+        """
+        Add gains and losses to energy and hp
+        """
         if self.obj.up or self.obj.down or self.obj.right or self.obj.left:
             self.obj.energy -= self.obj.gain_loss * self.obj.speed
         else:
@@ -82,13 +90,17 @@ class CharacterManager(ObjectManager):
             self.obj.hp += self.obj.gain_loss * 3
             self.obj.energy -= self.obj.gain_loss
 
-    # Check if dead
     def check_dead(self):
+        """
+        Set object to dead when hp is 0
+        """
         if self.obj.hp <= 0:
             self.dead = True
 
-    # Preform character movement
     def move(self):
+        """
+        Preform character movement
+        """
         if self.obj.left and self.obj.position[0] - self.obj.speed - self.obj.radius > 0:  # LEFT
             self.obj.position[0] -= self.obj.speed
         if self.obj.right and self.obj.position[0] + self.obj.speed + self.obj.radius < WIDTH:  # RIGHT
@@ -98,8 +110,10 @@ class CharacterManager(ObjectManager):
         if self.obj.down and self.obj.position[1] + self.obj.speed + self.obj.radius < HEIGHT:  # DOWN
             self.obj.position[1] += self.obj.speed
 
-    # Change speeds
     def change_speed(self):
+        """
+        Perform speed changes according to speed_up and slow_down
+        """
         if self.obj.speed_up:
             self.obj.speed += 0.1
             if self.obj.speed > self.obj.max_speed:
