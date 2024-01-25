@@ -16,7 +16,7 @@ SCREEN = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
 FONT = pygame.font.Font('freesansbold.ttf', 20)
 
 # Game settings
-ANIMAL_AMOUNT = 100
+ANIMAL_AMOUNT = 50
 
 CHARACTER_RADIUS = 8
 

@@ -1,6 +1,6 @@
 import pygame
 
-from GameLogic.GameObjects.Character.player import Player
+from GameLogic.GameObjects.Character.Player.player import Player
 from GameLogic.GameObjects.Character.char_manager import CharacterManager
 from GameLogic.GameUtilities.settings import INPUT
 
@@ -12,17 +12,16 @@ class PlayerManager(CharacterManager):
 
     # Perform actions
     def act(self, game_objects):
+        super().act(game_objects)
         if self.dead:
             # Dead stuff
             pass
         else:
-            super().act(game_objects)
             self.check_kill()
             self.check_eat()
             self.check_move()
             self.check_change_speed()
-            self.obj.move()
-            self.obj.change_speed()
+            self.draw_stats()
 
     # Check if kill
     def check_kill(self):

@@ -1,7 +1,7 @@
 import pygame
 
-from GameLogic.GameObjects.Character.Brain.layer import Layer
-from GameLogic.GameObjects.Character.animal import Animal
+from GameLogic.GameObjects.Character.Animal.Brain.layer import Layer
+from GameLogic.GameObjects.Character.Animal.animal import Animal
 from GameLogic.GameObjects.Enviroment.plant import Plant
 from GameLogic.GameUtilities.colors import BEIGE, BROWN
 from GameLogic.GameObjects.Character.char_manager import CharacterManager
@@ -22,7 +22,6 @@ class AnimalManager(CharacterManager):
         self.set_objects_in_range(game_objects)
         self.use_brain()
         self.calculate_reward()
-        self.obj.move()
         if self.obj.deal_dmg:
             self.obj.color = BROWN
         else:
@@ -127,4 +126,4 @@ class AnimalManager(CharacterManager):
             self.obj.reward += 10
         # Add death penalty when reinforcement learning
         if self.dead:
-            self.obj.reward += self.obj.age
+            self.obj.reward += self.age

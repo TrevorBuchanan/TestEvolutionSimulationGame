@@ -1,11 +1,8 @@
 import pygame
 
-from GameLogic.GameObjects.SOTFControls.epoch_manager import EpochManager
-from GameLogic.GameObjects.Character.player_manager import PlayerManager
+from GameLogic.GameObjects.Character.Player.player_manager import PlayerManager
 from GameLogic.GameUtilities import colors
-from GameLogic.GameUtilities.colors import WHITE
 from GameLogic.GameUtilities.settings import SCREEN, INPUT
-from GameLogic.GameUtilities.utility import write_to_screen
 
 
 class Game:
@@ -22,8 +19,6 @@ class Game:
         # All game object actions
         for game_obj in self.game_objects:
             game_obj.act(self.game_objects)
-            if isinstance(game_obj, PlayerManager):
-                game_obj.draw_stats()
 
         # Handle object removal and appends
         for game_obj in self.game_objects:

@@ -2,9 +2,10 @@ class ObjectManager:
     def __init__(self):
         self.obj = None
         self.dead = False
+        self.age = 0
 
     def act(self, game_objects):
-        raise Exception("Not implemented \'perform_actions\' function")
+        self.age += 0.005
 
     def draw(self):
         raise Exception("Not implemented \'draw\' function")

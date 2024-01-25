@@ -1,10 +1,12 @@
+import math
+
 import pygame
 
 from GameLogic.GameObjects.Character.character import Character
 from GameLogic.GameObjects.Enviroment.plant_manager import PlantManager
 from GameLogic.GameObjects.objectManager import ObjectManager
 from GameLogic.GameUtilities.colors import WHITE
-from GameLogic.GameUtilities.settings import WIDTH, SCREEN
+from GameLogic.GameUtilities.settings import WIDTH, SCREEN, HEIGHT
 from GameLogic.GameUtilities.utility import write_to_screen, pt_calc_dist
 
 
@@ -14,18 +16,20 @@ class CharacterManager(ObjectManager):
         self.obj = Character([0, 0], 1)
 
     def act(self, game_objects):
+        super().act(game_objects)
         self.check_dead()
         self.gain_and_loss()
         self.damage_and_eat(game_objects)
+        self.move()
+        self.change_speed()
         self.draw()
-        self.obj.age += 0.005
 
     # Draw player stats
     def draw_stats(self):
         write_to_screen(f"Energy: {round(self.obj.energy)}", [WIDTH - 120, 50], WHITE)
         write_to_screen(f"HP: {round(self.obj.hp)}", [WIDTH - 120, 80], WHITE)
         write_to_screen(f"Speed: {round(self.obj.speed, 2)}", [WIDTH - 120, 110], WHITE)
-        write_to_screen(f"Age: {round(self.obj.age)}", [WIDTH - 120, 140], WHITE)
+        write_to_screen(f"Age: {math.floor(self.age)}", [WIDTH - 120, 140], WHITE)
 
     def draw(self):
         pygame.draw.circle(SCREEN, self.obj.color, self.obj.position, self.obj.radius)
@@ -82,3 +86,26 @@ class CharacterManager(ObjectManager):
     def check_dead(self):
         if self.obj.hp <= 0:
             self.dead = True
+
+    # Preform character movement
+    def move(self):
+        if self.obj.left and self.obj.position[0] - self.obj.speed - self.obj.radius > 0:  # LEFT
+            self.obj.position[0] -= self.obj.speed
+        if self.obj.right and self.obj.position[0] + self.obj.speed + self.obj.radius < WIDTH:  # RIGHT
+            self.obj.position[0] += self.obj.speed
+        if self.obj.up and self.obj.position[1] - self.obj.speed - self.obj.radius > 0:  # UP
+            self.obj.position[1] -= self.obj.speed
+        if self.obj.down and self.obj.position[1] + self.obj.speed + self.obj.radius < HEIGHT:  # DOWN
+            self.obj.position[1] += self.obj.speed
+
+    # Change speeds
+    def change_speed(self):
+        if self.obj.speed_up:
+            self.obj.speed += 0.1
+            if self.obj.speed > self.obj.max_speed:
+                self.obj.speed = 5
+
+        if self.obj.slow_down:
+            self.obj.speed -= 0.1
+            if self.obj.speed < self.obj.min_speed:
+                self.obj.speed = self.obj.min_speed

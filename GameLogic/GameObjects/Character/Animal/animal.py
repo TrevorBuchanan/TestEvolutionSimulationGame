@@ -1,6 +1,6 @@
 import random
 
-from GameLogic.GameObjects.Character.Brain import neuralNet
+from GameLogic.GameObjects.Character.Animal.Brain import neuralNet
 from GameLogic.GameObjects.Character.character import Character
 from GameLogic.GameUtilities.utility import generate_random_pos
 from GameLogic.GameUtilities.settings import WIDTH, HEIGHT, CHARACTER_RADIUS

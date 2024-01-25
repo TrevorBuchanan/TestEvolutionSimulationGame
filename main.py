@@ -2,13 +2,13 @@
 
 import pygame
 
-from GameLogic.GameObjects.Character.animal_manager import AnimalManager
-from GameLogic.GameObjects.Character.player_manager import PlayerManager
+from GameLogic.GameObjects.Character.Animal.animal_manager import AnimalManager
+from GameLogic.GameObjects.Character.Player.player_manager import PlayerManager
 from GameLogic.GameObjects.Enviroment.plant_manager import PlantManager
 from GameLogic.Game.game import Game
-from GameLogic.GameObjects.SOTFControls.epoch_manager import EpochManager
+from GameLogic.GameObjects.Character.Animal.Training.epoch_manager import EpochManager
 from GameLogic.GameUtilities.colors import WHITE
-from GameLogic.GameUtilities.settings import FPS, SCREEN, FONT, BORDER, ANIMAL_AMOUNT, PLANT_AMOUNT
+from GameLogic.GameUtilities.settings import FPS, BORDER, ANIMAL_AMOUNT, PLANT_AMOUNT
 from GameLogic.GameUtilities.utility import write_to_screen
 
 if __name__ == '__main__':

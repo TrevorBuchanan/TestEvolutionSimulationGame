@@ -1,4 +1,4 @@
-from GameLogic.GameObjects.Character.Brain.layer import Layer
+from GameLogic.GameObjects.Character.Animal.Brain.layer import Layer
 
 
 class NeuralNet:
