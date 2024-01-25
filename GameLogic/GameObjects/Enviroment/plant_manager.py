@@ -1,7 +1,7 @@
 import pygame
 
 from GameLogic.GameObjects.Enviroment.plant import Plant
-from GameLogic.GameObjects.objectManager import ObjectManager
+from GameLogic.GameObjects.object_manager import ObjectManager
 from GameLogic.GameUtilities.settings import PLANT_RADIUS, PLANT_NUTRIENTS, SCREEN
 from GameLogic.GameUtilities.utility import scale_to_range
 

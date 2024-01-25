@@ -4,7 +4,7 @@ import pygame
 
 from GameLogic.GameObjects.Character.character import Character
 from GameLogic.GameObjects.Enviroment.plant_manager import PlantManager
-from GameLogic.GameObjects.objectManager import ObjectManager
+from GameLogic.GameObjects.object_manager import ObjectManager
 from GameLogic.GameUtilities.colors import WHITE
 from GameLogic.GameUtilities.settings import WIDTH, SCREEN, HEIGHT
 from GameLogic.GameUtilities.utility import write_to_screen, pt_calc_dist

@@ -19,6 +19,7 @@ class Game:
         # All game object actions
         for game_obj in self.game_objects:
             game_obj.act(self.game_objects)
+            game_obj.draw()
 
         # Handle object removal and appends
         for game_obj in self.game_objects:
