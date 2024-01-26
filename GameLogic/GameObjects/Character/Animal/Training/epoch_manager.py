@@ -106,13 +106,14 @@ class EpochManager(ObjectManager):
 
     def run_new_epoch(self, game_objects):
         """
-
-        :param game_objects:
+        End the current age and take the best characters from the age to reproduce the next generation from
+        :param game_objects: List of all current game objects
         """
         self.obj.count += 1
         top_rewards = []
         chars_to_reproduce = []
 
+        # Loop through all game objects
         for game_obj in game_objects:
             if isinstance(game_obj, AnimalManager):
                 if len(top_rewards) <= self.obj.top_selection_amount:
@@ -122,6 +123,7 @@ class EpochManager(ObjectManager):
                         top_rewards.remove(min(top_rewards))
                         top_rewards.append(game_obj.obj.reward)
 
+        # Loop through all game objects
         for game_obj in game_objects:
             if isinstance(game_obj, AnimalManager):
                 if game_obj.obj.reward >= min(top_rewards):
@@ -129,6 +131,7 @@ class EpochManager(ObjectManager):
                 else:
                     game_obj.dead = True
 
+        # Loop with length of desired animal amount
         for _ in range(ANIMAL_AMOUNT):
             if self.obj.top_selection_amount > ANIMAL_AMOUNT:
                 index = random.randint(0, ANIMAL_AMOUNT - 1)

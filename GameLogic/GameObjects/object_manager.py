@@ -6,7 +6,7 @@ class ObjectManager:
 
     def act(self, game_objects):
         """
-        Perform objects actions
+        Perform object's actions
         :param game_objects: List of all current game objects
         """
         self.age += 0.005
