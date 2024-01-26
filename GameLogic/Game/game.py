@@ -21,6 +21,6 @@ class Game:
             game_obj.act(self.game_objects)
             game_obj.draw()
 
-        # Handle object removal and appends
+        # Handle object removal
         for game_obj in self.game_objects:
             game_obj.end_life_if_dead(self.game_objects)
