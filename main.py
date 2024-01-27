@@ -14,8 +14,8 @@ from GameLogic.GameUtilities.utility import write_to_screen
 if __name__ == '__main__':
     clock = pygame.time.Clock()
 
+    # Set up the game
     g = Game()
-
     for _ in range(ANIMAL_AMOUNT):
         g.game_objects.append(AnimalManager())
 
@@ -39,7 +39,7 @@ if __name__ == '__main__':
                 pygame.quit()
                 quit()
 
-        g.run_game()
+        g.run_game_iteration()
 
         fps = str(int(clock.get_fps()))
         write_to_screen(f"FPS: {fps}", [BORDER.width - 120, 10], WHITE)

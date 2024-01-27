@@ -8,8 +8,9 @@ from GameLogic.GameUtilities.settings import SCREEN, INPUT
 class Game:
     def __init__(self):
         self.game_objects = []
+        self.game_clock = 0
 
-    def run_game(self):
+    def run_game_iteration(self):
         # Fill the background
         SCREEN.fill(colors.DARK_GREEN)
 

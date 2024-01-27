@@ -3,13 +3,14 @@ class ObjectManager:
         self.obj = None
         self.dead = False
         self.age = 0
+        self.age_increment = 0.005
 
     def act(self, game_objects):
         """
         Perform object's actions
         :param game_objects: List of all current game objects
         """
-        self.age += 0.005
+        self.age += self.age_increment
 
     def draw(self):
         """
