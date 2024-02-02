@@ -7,6 +7,9 @@ from GameLogic.GameUtilities.utility import write_to_screen
 
 
 class Game:
+    """
+    Game class
+    """
     def __init__(self):
         self.game_objects = []
         self.game_clock = 0
