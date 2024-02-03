@@ -21,18 +21,25 @@ class PlantManager(ObjectManager):
     def draw(self):
         pygame.draw.circle(SCREEN, self.obj.color, self.obj.position, self.obj.radius)
 
-    # Plant growth
     def grow(self):
+        """
+        Plant growth
+        """
         if self.obj.total_nutrients + self.obj.growth <= PLANT_NUTRIENTS:
             self.obj.total_nutrients += self.obj.growth
 
-    # Plant being eaten
     def get_eaten(self):
+        """
+        Plant being eaten
+        """
         if self.being_eaten:
             self.obj.total_nutrients -= self.obj.nutrients
             self.being_eaten = False
 
     def normalize_radius(self):
+        """
+        Make radius of plant proportional to how much it has been eaten
+        """
         min_radius = 4
         max_radius = PLANT_RADIUS
         min_nutrients = 0
