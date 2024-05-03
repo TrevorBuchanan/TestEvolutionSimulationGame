@@ -159,16 +159,19 @@ class AnimalManager(CharacterManager):
         """
         Calculate reward of result of actions made
         """
-        if self.obj.energy > self.obj.energy_prev:  # Energy went down
-            self.obj.reward += 0.5  # Value of positive energy change
-        elif self.obj.energy < self.obj.energy_prev:
-            self.obj.reward -= 1  # Value of negative energy change
-        if self.obj.hp > self.obj.hp_prev:
-            self.obj.reward += 0.5  # Value of positive hp change
-        elif self.obj.hp < self.obj.hp_prev:
-            self.obj.reward -= 1  # Value of negative energy change
-        if self.obj.reproduce:
-            self.obj.reward += 10
-        # Add death penalty when reinforcement learning
-        if self.dead:
-            self.obj.reward += self.age
+        # if self.obj.energy > self.obj.energy_prev:  # Energy went down
+        #     self.obj.reward += 0.5  # Value of positive energy change
+        # elif self.obj.energy < self.obj.energy_prev:
+        #     self.obj.reward -= 1  # Value of negative energy change
+        # if self.obj.hp > self.obj.hp_prev:
+        #     self.obj.reward += 0.5  # Value of positive hp change
+        # elif self.obj.hp < self.obj.hp_prev:
+        #     self.obj.reward -= 1  # Value of negative energy change
+        # if self.obj.reproduce:
+        #     self.obj.reward += 10
+        # # Add death penalty when reinforcement learning
+        # if self.dead:
+        #     self.obj.reward += self.age
+
+        if self.obj.position[0] < 250:
+            self.obj.reward += 0.1

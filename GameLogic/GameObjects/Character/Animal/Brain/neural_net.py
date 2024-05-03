@@ -1,29 +1,16 @@
 from GameLogic.GameObjects.Character.Animal.Brain.layer import Layer
+import numpy as np
 
 
 class NeuralNet:
-
     def __init__(self, layer_sizes, min_max_inputs):
         """
         List of layers
         :param layer_sizes: List of integers for each layer size (all must be positive and non-zero)
         :param min_max_inputs: List of tuples holding minimum and maximum values for each initial input node
         """
-        self.layers = self.create_layers(layer_sizes)
-        self.min_max_inputs = min_max_inputs
-
-    @staticmethod
-    def create_layers(layer_sizes):
-        """
-        Creates layers according to layer sizes
-        :param layer_sizes: List of integers defining the layer sizes
-        :return: A List of Layers
-        """
-        layers = []
-        # Loop through layers and add layer to layers list
-        for i in range(len(layer_sizes) - 1):
-            layers.append(Layer(layer_sizes[i], layer_sizes[i + 1]))
-        return layers
+        self.layers = [Layer(layer_sizes[i], layer_sizes[i + 1]) for i in range(len(layer_sizes) - 1)]
+        self.min_max_inputs = np.array(min_max_inputs)
 
     def normalize_inputs(self, inputs):
         """
@@ -31,18 +18,10 @@ class NeuralNet:
         :param inputs: List of inputs
         :return: Normalized (scaled) inputs
         """
-        normalized_inputs = []
-        # Loop through each value and normalize inputs to between 0 and 1
-        for input_node_val, min_max in zip(inputs, self.min_max_inputs):
-            if isinstance(input_node_val, bool):
-                if input_node_val:
-                    normalized_inputs.append(1.0)
-                else:
-                    normalized_inputs.append(0.0)
-            else:
-                normalized = (input_node_val - min_max[0]) / (min_max[1] - min_max[0])
-                normalized_inputs.append(normalized)
-        return normalized_inputs
+        inputs = np.array(inputs, dtype=np.float64)
+        min_vals = self.min_max_inputs[:, 0]
+        max_vals = self.min_max_inputs[:, 1]
+        return (inputs - min_vals) / (max_vals - min_vals)
 
     def get_outputs(self, inputs):
         """
@@ -51,12 +30,8 @@ class NeuralNet:
         :return: List of outputs from neural network
         """
         inputs = self.normalize_inputs(inputs)
-        if self.layers[0].numInputs == len(inputs):
-            # Forward propagate through network
-            for one_layer in self.layers:
-                inputs = one_layer.get_layer_outputs(inputs)
-        else:
-            raise Exception("Incorrectly sized input for neural network")
+        for layer in self.layers:
+            inputs = layer.get_layer_outputs(inputs)
         return inputs
 
     # def learn(self, training_data, learn_rate):
